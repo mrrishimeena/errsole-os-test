@@ -16,11 +16,13 @@ const express = require('express');
 const { createProxyMiddleware } = require('http-proxy-middleware');
 const app = express();
 
-app.use('/errsole-dashboard', createProxyMiddleware({
+app.use('/api', createProxyMiddleware((pathname, req) => {
+  return pathname.match('^/api') && !pathname.match('\.(js|css|png|jpg|jpeg|gif|ico)$');
+}, {
     target: 'http://localhost:8001', 
     changeOrigin: true,             
     pathRewrite: {
-        '^/errsole-dashboard': '',
+        '^/api': '',
     },
     onProxyReq: (proxyReq, req, res) => {
         // You can modify the proxy request here (e.g., headers)
