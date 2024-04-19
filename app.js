@@ -16,22 +16,10 @@ const express = require('express');
 const { createProxyMiddleware } = require('http-proxy-middleware');
 const app = express();
 
-app.use('/api', createProxyMiddleware((pathname, req) => {
-  return pathname.match('^/api') && !pathname.match('\.(js|css|png|jpg|jpeg|gif|ico)$');
-}, {
+app.use('/', createProxyMiddleware({
     target: 'http://localhost:8001', 
-    changeOrigin: true,             
-    pathRewrite: {
-        '^/api': '',
-    },
-    onProxyReq: (proxyReq, req, res) => {
-        // You can modify the proxy request here (e.g., headers)
-    }
+    changeOrigin: true
 }));
-
-app.get('/', function (req, res) {
-  res.send('Hello World');
-});
 
 app.get('/random', function (req, res) {
   console.log(req);
