@@ -17,10 +17,10 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 const app = express();
 
 app.use('/errsole-dashboard', createProxyMiddleware({
-    target: 'http://localhost:8001', // Target host
-    changeOrigin: true,              // Needed for virtual hosted sites
+    target: 'http://localhost:8001', 
+    changeOrigin: true,             
     pathRewrite: {
-        '^/errsole-dashboard': '',                 // Rewrite path: remove '/api'
+        '^/errsole-dashboard': '',
     },
     onProxyReq: (proxyReq, req, res) => {
         // You can modify the proxy request here (e.g., headers)
