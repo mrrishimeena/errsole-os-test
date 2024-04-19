@@ -13,7 +13,23 @@ errsole.initialize({
  * Your app code starts here
  */
 const express = require('express');
+const { createProxyMiddleware } = require('http-proxy-middleware');
 const app = express();
+
+// Define the proxy middleware to forward requests to the internal app on port 8001
+const apiProxy = createProxyMiddleware('/errsole-dashboard', {
+    target: 'http://localhost:8001', // URL to forward to
+    changeOrigin: true,
+    pathRewrite: {
+        '^/errsole-dashboard': '' // rewrite paths by removing '/api' if needed
+    },
+    onProxyReq: (proxyReq, req, res) => {
+        // Optional: modify the proxy request here before sending it
+    }
+});
+// Use the proxy middleware
+app.use('/errsole-dashboard', apiProxy);
+
 
 app.get('/', function (req, res) {
   res.send('Hello World');
