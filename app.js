@@ -16,13 +16,18 @@ const express = require('express');
 const { createProxyMiddleware } = require('http-proxy-middleware');
 const app = express();
 
-app.use('/errsole/*', createProxyMiddleware({
-    target: 'http://localhost:8001', 
+// Proxy middleware to handle paths for errsole-dashboard
+app.use('/errsole', createProxyMiddleware({
+    target: 'http://localhost:8001',
     changeOrigin: true,
-    pathRewrite: {
-      '^/errsole': '/*'
-    }
+    pathRewrite: (path, req) => {
+      return path.replace(/^\/errsole/, '');
+    },
+    logLevel: 'debug' // Optional: enable debug logging for the proxy
 }));
+
+
+app.get('/', function(req, res){ res.send('Hello Errsole') });
 
 app.get('/random', function (req, res) {
   console.log(req);
