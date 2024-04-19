@@ -1,7 +1,7 @@
 /**
  * Insert this Errsole code snippet as the first line of your app's main file
  */
-const errsole = require('errsole');
+const errsole = require('errsole.js');
 const ErrsoleMongoDB = require('errsole-mongodb');
 
 errsole.initialize({
@@ -18,16 +18,15 @@ const app = express();
 
 // Proxy middleware to handle paths for errsole-dashboard
 app.use('/errsole', createProxyMiddleware({
-    target: 'http://localhost:8001',
-    changeOrigin: true,
-    pathRewrite: (path, req) => {
-      return path.replace(/^\/errsole/, '');
-    },
-    logLevel: 'debug' // Optional: enable debug logging for the proxy
+  target: 'http://localhost:8001',
+  changeOrigin: true,
+  pathRewrite: (path, req) => {
+    return path.replace(/^\/errsole/, '');
+  },
+  logLevel: 'debug' // Optional: enable debug logging for the proxy
 }));
 
-
-app.get('/', function(req, res){ res.send('Hello Errsole') });
+app.get('/', function (req, res) { res.send('Hello Errsole'); });
 
 app.get('/random', function (req, res) {
   console.log(req);
