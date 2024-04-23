@@ -6,8 +6,8 @@
         ""
     ],
     "dependencies": {
-        "errsole": "^2.0.1",
-        "errsole-mongodb": "^1.0.0",
+        "errsole": "^2.1.1",
+        "errsole-mongodb": "^1.1.2",
         "express": "^4.18.3",
         "http-proxy-middleware": "^3.0.0"
     }
