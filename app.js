@@ -1,7 +1,7 @@
 /**
  * Insert this Errsole code snippet as the first line of your app's main file
  */
-const errsole = require('errsole.js');
+const errsole = require('errsole');
 const ErrsoleMongoDB = require('errsole-mongodb');
 
 errsole.initialize({
